@@ -66,6 +66,7 @@ const AuthForm = ({ type }: { type: string }) => {
       setLoading(false);
     }
   };
+
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
