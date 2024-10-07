@@ -3,7 +3,6 @@
 import { ID } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
-import { parseStringify } from "../utils";
 
 export const signIn = async (userDate: LoginUser) => {
   try {
@@ -12,8 +11,14 @@ export const signIn = async (userDate: LoginUser) => {
       userDate.email,
       userDate.password
     );
+    cookies().set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
 
-    return parseStringify(session);
+    return session;
   } catch (error) {
     console.error(error);
     return null;
@@ -41,7 +46,7 @@ export const signUp = async (userData: SignUpParams) => {
       secure: true,
     });
 
-    return parseStringify(newUserAccount);
+    return newUserAccount;
   } catch (error) {
     console.error(error);
   }
@@ -51,7 +56,7 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
-    return parseStringify(user);
+    return user;
   } catch (error) {
     return null;
   }

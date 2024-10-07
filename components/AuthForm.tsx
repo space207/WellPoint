@@ -59,7 +59,6 @@ const AuthForm = ({ type }: { type: string }) => {
           router.push("/");
         }
       }
-      console.log(data);
     } catch (error) {
       console.error(error);
     } finally {

@@ -2,9 +2,13 @@ import React from "react";
 import HeaderBox from "@/components/HeaderBox";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 const Home = async () => {
   const loggedIn = await getLoggedInUser();
+  if (!loggedIn) {
+    redirect("/sign-in");
+  }
   return (
     <section className="home">
       <div className="home-content">
